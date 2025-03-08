@@ -48,7 +48,6 @@ const addToCart = (newItem, forceUpdate = false) => {
     
 };
 
-
 const CartScreen={
     async render(){
         const request=parseRequestUrl();
