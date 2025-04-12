@@ -6,18 +6,19 @@ import config from './config.js';
 import userRouter from './routers/userRouter.js';
 import bodyParser from 'body-parser';
 
-
 mongoose.connect(config.MONGODB_URL,{
         useNewUrlParser:true,
+        useUnifiedTopology:true,
     })
     .then(()=>{
-        console.log('Connected to mongoDB message');
+        console.log('Connected to mongoDB');
     })
     .catch((error)=>{
-        console.log(error.message);
+        console.log("error message=",error.message);
     });
 const app=express();
 app.use(cors());
+app.use(bodyParser.json());
 app.use(express.json());
 
 app.use("/api/users",userRouter);

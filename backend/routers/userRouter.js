@@ -3,6 +3,7 @@ import User from '../models/UserModel.js';
 import expressAsyncHandler from 'express-async-handler'
 import config from '../config.js';
 import generateToken from '../utils.js';
+import { sign } from 'jsonwebtoken';
 const userRouter=express.Router();
 
 userRouter.get("/createadmin",
@@ -12,8 +13,8 @@ userRouter.get("/createadmin",
         //create a user instance
         const user=new User({
             name:"admin",
-            email:"admin@example.com",
-            password:"jsamazona",
+            email:"admin@gmail.com",
+            password:"admin123",
             isAdmin:true
         });
         const createdUser=await user.save();
@@ -25,18 +26,18 @@ userRouter.get("/createadmin",
 );
 userRouter.post('/signin',
     expressAsyncHandler(async (req,res)=>{
-    console.log(req.body);
     const signinUser=await User.findOne({
         email: req.body.email,
         password: req.body.password
-    })
+    });
+    console.log('frontend is trying to signin with:',signinUser.email,',',signinUser.password);
     if(!signinUser){
         res.status(401).send({
             message:"Invalid email or password"
         });
     }
     else{
-        res.status(400).send(
+        res.status(200).send(
             {
             _id:signinUser._id,
             name:signinUser.name,

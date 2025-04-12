@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import config from './config';
 
+
 const generateToken=(user)=>{
     //console.log('in utils,config jwt secret:',config.JWT_SECRET);
     return jwt.sign({
